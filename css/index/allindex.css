@@ -338,8 +338,8 @@ table {
 
 @media (max-width: 767px) {
   .product_sell .img_wrapper:hover img {
-    -webkit-transform: scale(0);
-            transform: scale(0);
+    -webkit-transform: scale(1);
+            transform: scale(1);
   }
 }
 
