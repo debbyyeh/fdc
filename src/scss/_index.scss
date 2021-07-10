@@ -199,6 +199,18 @@
                 transition: 500ms;
             }
         }
+        @media (max-width:767px){
+            .img_wrapper {
+                img{
+                transform:scale(1.2);
+                opacity:.8;
+                }
+            .pic_info{
+                opacity:1;
+                transition: 500ms;
+                }
+            }
+        }
     }
     .pic_info {
         /*   display: none; */
@@ -223,6 +235,11 @@
             transition: all .2s;
             &:hover {
                 background-color:rgba(0,0,0,0.2);
+            }
+            @media (max-width:767px){
+                a {
+                background-color:rgba(0,0,0,0.2);
+                }
             }
         }
     }

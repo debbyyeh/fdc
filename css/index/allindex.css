@@ -342,6 +342,19 @@ table {
   transition: 500ms;
 }
 
+@media (max-width: 767px) {
+  .product_sell .img_wrapper .img_wrapper img {
+    -webkit-transform: scale(1.2);
+            transform: scale(1.2);
+    opacity: .8;
+  }
+  .product_sell .img_wrapper .img_wrapper .pic_info {
+    opacity: 1;
+    -webkit-transition: 500ms;
+    transition: 500ms;
+  }
+}
+
 .product_sell .pic_info {
   /*   display: none; */
   opacity: 0;
@@ -373,6 +386,12 @@ table {
 
 .product_sell .pic_info a:hover {
   background-color: rgba(0, 0, 0, 0.2);
+}
+
+@media (max-width: 767px) {
+  .product_sell .pic_info a a {
+    background-color: rgba(0, 0, 0, 0.2);
+  }
 }
 
 .footer {
