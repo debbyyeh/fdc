@@ -376,6 +376,12 @@ table {
   background-color: rgba(0, 0, 0, 0.2);
 }
 
+@media (max-width: 767px) {
+  .product_sell .pic_info {
+    opacity: 1;
+  }
+}
+
 .footer {
   text-align: center;
   padding: 40px 0px;
