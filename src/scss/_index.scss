@@ -189,18 +189,17 @@
             height:100%;
             object-fit: cover;
         }
+        @media (min-width:768px){
         &:hover {
             img{
                 transform:scale(1.2);
                 opacity:.8;
-                @media (max-width:767px){
-                    transform:scale(1);
-                }
             }
             .pic_info{
                 opacity:1;
                 transition: 500ms;
             }
+        }
         }
     }
     .pic_info {
@@ -212,9 +211,6 @@
         transform: translateY(-50%);
         width: 100%;
         text-align: center;
-        @media (max-width:767px){
-            opacity:1;
-        }
         p {
             color:white;
             font-weight: bold;
