@@ -10,7 +10,7 @@
         max-width:100%;
         height:auto;
         display:block;
-        border-radius: 30px;
+        border-radius: 15px;
     }
     a {
         display:block;
@@ -183,7 +183,7 @@
         box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
         overflow: hidden;
         position:relative;
-        border-radius: 30px;
+        border-radius: 15px;
         img {
             transition:all .2s;
             height:100%;
@@ -199,18 +199,6 @@
                 transition: 500ms;
             }
         }
-        @media (max-width:767px){
-            .img_wrapper {
-                img{
-                transform:scale(1.2);
-                opacity:.8;
-                }
-            .pic_info{
-                opacity:1;
-                transition: 500ms;
-                }
-            }
-        }
     }
     .pic_info {
         /*   display: none; */
@@ -221,6 +209,9 @@
         transform: translateY(-50%);
         width: 100%;
         text-align: center;
+        @media (max-width:767px){
+            opacity:1;
+        }
         p {
             color:white;
             font-weight: bold;
