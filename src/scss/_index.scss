@@ -1,4 +1,4 @@
-body {
+.container {
     max-width:960px;
     margin: 0 auto;
     padding:0px 20px;
@@ -10,6 +10,7 @@ body {
         max-width:100%;
         height:auto;
         display:block;
+        border-radius: 30px;
     }
     a {
         display:block;
@@ -83,7 +84,7 @@ body {
         }
         p {
             line-height: 20px;
-            margin-bottom: 8px;
+            margin-bottom: 12px;
         }
         a {
             margin-top: 16px;
@@ -148,7 +149,7 @@ body {
     }
     p {
         line-height: 20px;
-        margin-bottom: 8px;
+        margin-bottom: 12px;
     }
 }
 .greeting_2 {
@@ -182,6 +183,7 @@ body {
         box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
         overflow: hidden;
         position:relative;
+        border-radius: 30px;
         img {
             transition:all .2s;
             height:100%;
@@ -227,7 +229,6 @@ body {
 }
 .footer {
     text-align: center;
-    background-color: #cfcfcf;
     padding:40px 0px;
     p {
         margin-bottom: 8px;

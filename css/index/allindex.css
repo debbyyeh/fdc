@@ -52,25 +52,26 @@ table {
   border-spacing: 0;
 }
 
-body {
+.container {
   max-width: 960px;
   margin: 0 auto;
   padding: 0px 20px;
   font-family: 'Noto Sans TC', sans-serif;
 }
 
-body ::before, body ::after {
+.container ::before, .container ::after {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
 }
 
-body img {
+.container img {
   max-width: 100%;
   height: auto;
   display: block;
+  border-radius: 30px;
 }
 
-body a {
+.container a {
   display: block;
   text-decoration: none;
 }
@@ -174,7 +175,7 @@ body a {
 
 .top_news .news_content p {
   line-height: 20px;
-  margin-bottom: 8px;
+  margin-bottom: 12px;
 }
 
 .top_news .news_content a {
@@ -268,7 +269,7 @@ body a {
 
 .daily_news p {
   line-height: 20px;
-  margin-bottom: 8px;
+  margin-bottom: 12px;
 }
 
 .greeting_2 h4 {
@@ -318,6 +319,7 @@ body a {
           box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
   overflow: hidden;
   position: relative;
+  border-radius: 30px;
 }
 
 .product_sell .img_wrapper img {
@@ -375,7 +377,6 @@ body a {
 
 .footer {
   text-align: center;
-  background-color: #cfcfcf;
   padding: 40px 0px;
 }
 
