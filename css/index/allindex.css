@@ -336,6 +336,13 @@ table {
   opacity: .8;
 }
 
+@media (max-width: 767px) {
+  .product_sell .img_wrapper:hover img {
+    -webkit-transform: scale(0);
+            transform: scale(0);
+  }
+}
+
 .product_sell .img_wrapper:hover .pic_info {
   opacity: 1;
   -webkit-transition: 500ms;
@@ -379,12 +386,6 @@ table {
 
 .product_sell .pic_info a:hover {
   background-color: rgba(0, 0, 0, 0.2);
-}
-
-@media (max-width: 767px) {
-  .product_sell .pic_info a a {
-    background-color: rgba(0, 0, 0, 0.2);
-  }
 }
 
 .footer {
