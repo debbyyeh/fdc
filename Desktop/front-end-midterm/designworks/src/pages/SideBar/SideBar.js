@@ -2,13 +2,14 @@ import styled from 'styled-components'
 
 const SideBarBg = styled.div`
   background-color: #f44336;
+  font-family: poppins;
   width: 300px;
+  height: 800px;
   position: fixed;
   top: 0;
-  bottom: 0;
   left: 0;
 `
-const SideBarTitle = styled.h1`
+const SideBarTitle = styled.h3`
   font-size: 24px;
   line-height: 36px;
   color: white;
