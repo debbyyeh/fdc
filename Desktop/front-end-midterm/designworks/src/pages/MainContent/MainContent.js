@@ -11,6 +11,7 @@ const Wrapper = styled.div`
   max-width: 1440px;
   padding: 72px 64px 72px 364px;
   position: relative;
+  font-family: poppins;
   @media (max-width: 1280px) {
     max-width: 1280px;
   }
@@ -251,6 +252,7 @@ const InputText = styled.input`
   }
 `
 const SendBtn = styled.button`
+  font-family: poppins;
   width: 100%;
   border: none;
   cursor: pointer;
@@ -281,12 +283,12 @@ function MainContent() {
     ) {
       alert('資料未填完整')
     } else {
-      const today = Math.round(new Date().getTime() / 1000)
+      const timestamp = Date.now()
       let messageInfo = {
         name: nameRef.current.value,
         email: emailRef.current.value,
         message: messageRef.current.value,
-        timestamp: today,
+        timestamp: timestamp,
       }
       console.log(messageInfo)
       const res = await fetch(`http://localhost:3000/messages`, {

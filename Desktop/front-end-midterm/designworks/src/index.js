@@ -8,9 +8,8 @@ const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
   <BrowserRouter>
     <Routes>
-      <Route path="/" element={<App />}>
-        <Route path="admin" element={<Messages />} />
-      </Route>
+      <Route path="/" element={<App />} />
+      <Route path="/admin" element={<Messages />} />
     </Routes>
   </BrowserRouter>,
 )

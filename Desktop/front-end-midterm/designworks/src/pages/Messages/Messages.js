@@ -10,6 +10,7 @@ const Admin = styled.button`
 `
 
 const TableInfo = styled.table`
+  width: 100%;
   border: 1px solid black;
 `
 const MessageContent = styled.div`
@@ -20,11 +21,18 @@ const MessageContent = styled.div`
 `
 const CommentName = styled.p`
   font-size: 18px;
+  line-height: 18px;
   margin-bottom: 6px;
 `
 const CommentEmail = styled(CommentName)``
 const CommentMessage = styled(CommentName)``
 const CommentTime = styled(CommentName)``
+const DeleteBtn = styled.button`
+  border: 1px solid black;
+  padding: 6px;
+  width: 200px;
+  margin: 0 auto;
+`
 
 function Messages() {
   const [messageList, setMessageList] = useState([])
@@ -41,19 +49,42 @@ function Messages() {
   }
 
   console.log(messageList)
+
+  async function deleteTag(key) {
+    alert('資料即將刪除')
+    let newMessageList = setMessageList.filter((item, index) => index !== key)
+    const response = await fetch(`http://localhost:3000/messages/:${key}`, {
+      body: JSON.stringify(newMessageList),
+      headers: new Headers({
+        'Content-Type': 'application/json',
+      }),
+      method: 'DELETE',
+    })
+    if (response.status === 200) {
+      const newData = await response.json()
+      setMessageList(newData)
+    } else {
+      alert('未成功刪除')
+    }
+    console.log(messageList)
+  }
+
   return (
     <>
       <Admin onClick={getMessageInfo}>click me</Admin>
       <ReceiveInfo>
         {messageList &&
-          messageList.map((content, key) => {
+          messageList.map((content, index) => {
             return (
-              <TableInfo key={key} id={content.id}>
+              <TableInfo key={index} id={content.id}>
                 <MessageContent>
-                  <CommentName>{content.name}</CommentName>
-                  <CommentEmail>{content.email}</CommentEmail>
-                  <CommentMessage>{content.message}</CommentMessage>
-                  <CommentTime>{content.timestamp}</CommentTime>
+                  <CommentName>Name：{content.name}</CommentName>
+                  <CommentEmail>Email：{content.email}</CommentEmail>
+                  <CommentMessage>Message：{content.message}</CommentMessage>
+                  <CommentTime>Time：{content.timestamp}</CommentTime>
+                  <DeleteBtn onClick={() => deleteTag(index)}>
+                    刪除訊息
+                  </DeleteBtn>
                 </MessageContent>
               </TableInfo>
             )
