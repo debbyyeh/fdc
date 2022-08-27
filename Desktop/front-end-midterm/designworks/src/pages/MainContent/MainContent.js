@@ -52,8 +52,13 @@ const SideBarBg = styled.div`
   transition: all 0.3s;
 
   @media screen and (max-width: 992px) {
-    height: 100%;
+    ${(props) => props.hideOnMobile && 'display: none;'}
+    height:100%;
   }
+`
+const SideBarBgPhone = styled(SideBarBg)`
+  width: 100%;
+  background: rgba(0, 0, 0, 0.5);
 `
 const SideBarTitle = styled.h3`
   font-size: 24px;
@@ -263,7 +268,7 @@ const SendBtn = styled.button`
 `
 
 function MainContent() {
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(true)
   const nameRef = useRef()
   const emailRef = useRef()
   const messageRef = useRef()
@@ -313,20 +318,30 @@ function MainContent() {
           <Bar onClick={showSide}></Bar>
           <PhoneTitle>DesignWorks</PhoneTitle>
         </PhoneSideBar>
-        {open && (
-          <SideBarBg>
-            <CloseBtn onClick={closeSlide}></CloseBtn>
-            <SideBarTitle>DesignWorks</SideBarTitle>
-            <SideBarLists>
-              {['Home', 'Showcase', 'Services', 'Contact'].map(
-                (list, index) => {
-                  return <SideBarList key={index}>{list}</SideBarList>
-                },
-              )}
-            </SideBarLists>
-          </SideBarBg>
-        )}
 
+        <SideBarBg hideOnMobile>
+          <SideBarTitle>DesignWorks</SideBarTitle>
+          <SideBarLists>
+            {['Home', 'Showcase', 'Services', 'Contact'].map((list, index) => {
+              return <SideBarList key={index}>{list}</SideBarList>
+            })}
+          </SideBarLists>
+        </SideBarBg>
+        {open && (
+          <SideBarBgPhone>
+            <SideBarBg>
+              <CloseBtn onClick={closeSlide}></CloseBtn>
+              <SideBarTitle>DesignWorks</SideBarTitle>
+              <SideBarLists>
+                {['Home', 'Showcase', 'Services', 'Contact'].map(
+                  (list, index) => {
+                    return <SideBarList key={index}>{list}</SideBarList>
+                  },
+                )}
+              </SideBarLists>
+            </SideBarBg>
+          </SideBarBgPhone>
+        )}
         <ContentWrapper>
           <MainTitle>Interior Design</MainTitle>
           <SubTitle>Showcase.</SubTitle>
