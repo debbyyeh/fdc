@@ -45,16 +45,15 @@ function Messages() {
     // console.log(await res.json())
     const data = await res.json()
     setMessageList(data)
-    return await res.json()
+    // return await res.json()
   }
-
-  console.log(messageList)
 
   async function deleteTag(key) {
     alert('資料即將刪除')
-    let newMessageList = setMessageList.filter((item, index) => index !== key)
+    let newMessageList = messageList.filter((item, index) => index !== key)
+    setMessageList([...newMessageList])
     const response = await fetch(`http://localhost:3000/messages/:${key}`, {
-      body: JSON.stringify(newMessageList),
+      body: JSON.stringify(messageList),
       headers: new Headers({
         'Content-Type': 'application/json',
       }),
@@ -66,7 +65,6 @@ function Messages() {
     } else {
       alert('未成功刪除')
     }
-    console.log(messageList)
   }
 
   return (
