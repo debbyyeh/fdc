@@ -1,28 +1,25 @@
 import styled from 'styled-components'
 import React, { useState, useEffect, useRef } from 'react'
-import bedroom from './bedroom 1.png'
-import diningroom from './diningroom 1.png'
-import livingroomA from './livingroom 1.png'
-import livingroomB from './livingroom2 1.png'
+import ApiContext from '../../contexts/ApiContext'
+import Bedroom from './bedroom.png'
+import Diningroom from './diningroom.png'
+import LivingroomA from './livingroomA.png'
+import LivingroomB from './livingroomB.png'
 import Line from './Vector.png'
 import Close from './close.png'
 
 const Wrapper = styled.div`
-  max-width: 1140px;
-  padding: 72px 64px;
+  max-width: 1440px;
+  padding: 72px 64px 72px 364px;
   position: relative;
   @media (max-width: 1280px) {
-    max-width: 980px;
+    max-width: 1280px;
   }
   @media (max-width: 993px) {
     padding: 12px 16px 72px 16px;
   }
 `
-const ContentWrapper = styled.div`
-  @media screen and (max-width: 993px) {
-    padding-top: 16px;
-  }
-`
+
 //sidebar
 const PhoneSideBar = styled.div`
   background-color: #f44336;
@@ -37,6 +34,7 @@ const PhoneSideBar = styled.div`
     display: flex;
     align-items: center;
     padding: 26px 32px;
+    z-index: 99;
   }
 `
 const SideBarBg = styled.div`
@@ -51,14 +49,19 @@ const SideBarBg = styled.div`
   padding-left: 48px;
   transition: all 0.3s;
 
-  @media screen and (max-width: 992px) {
+  @media (max-width: 992px) {
     ${(props) => props.hideOnMobile && 'display: none;'}
     height:100%;
+    z-index: 100;
   }
 `
 const SideBarBgPhone = styled(SideBarBg)`
+  display: none;
   width: 100%;
   background: rgba(0, 0, 0, 0.5);
+  @media screen and (max-width: 993px) {
+    display: block;
+  }
 `
 const SideBarTitle = styled.h3`
   font-size: 24px;
@@ -141,80 +144,73 @@ const MainImageWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
   margin-bottom: 72px;
+  @media screen and (max-width: 1279px) {
+    width: 852px;
+  }
   @media screen and (max-width: 993px) {
+    width: 100%;
     flex-direction: column;
   }
 `
-
-const MainImageA = styled.div`
-  border: 1px solid black;
+const ImageOuter = styled.div`
   width: 498px;
   height: 277px;
-  background-image: url(${bedroom});
+  margin-bottom: 16px;
+  @media screen and (max-width: 1281px) {
+    width: 418px;
+    height: 232px;
+  }
+  @media screen and (max-width: 993px) {
+    width: 100%;
+    height: 212px;
+  }
+`
+const MainImageA = styled.img`
+  width: 100%;
+  height: 100%;
+  background-image: url(${Bedroom});
   background-repeat: no-repeat;
   background-size: cover;
-  margin-bottom: 16px;
   margin-right: 8px;
-  @media screen and (max-width: 1281px) {
-    width: 418px;
-    height: 232px;
-  }
+
   @media screen and (max-width: 993px) {
-    width: 100%;
-    height: 212px;
     margin-right: 0;
   }
 `
-const MainImageB = styled.div`
-  background-image: url(${diningroom});
-  border: 1px solid black;
-  width: 498px;
-  height: 277px;
-  margin-bottom: 16px;
+const MainImageB = styled.img`
+  background-image: url(${Diningroom});
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  width: 100%;
+  height: 100%;
   margin-left: 8px;
-  @media screen and (max-width: 1281px) {
-    width: 418px;
-    height: 232px;
-  }
   @media screen and (max-width: 993px) {
-    width: 100%;
-    height: 212px;
     margin-left: 0;
   }
 `
-const MainImageC = styled.div`
-  background-image: url(${livingroomA});
-  border: 1px solid black;
-  width: 498px;
-  height: 277px;
-  margin-bottom: 16px;
+const MainImageC = styled.img`
+  background-image: url(${LivingroomA});
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  width: 100%;
+  height: 100%;
   margin-right: 8px;
-  @media screen and (max-width: 1281px) {
-    width: 418px;
-    height: 232px;
+  @media screen and (max-width: 993px) {
     margin-right: 0;
   }
-  @media screen and (max-width: 993px) {
-    width: 100%;
-    height: 212px;
-  }
 `
-const MainImageD = styled.div`
-  background-image: url(${livingroomB});
-  border: 1px solid black;
-  width: 498px;
-  height: 277px;
-  margin-bottom: 16px;
+const MainImageD = styled.img`
+  background-image: url(${LivingroomB});
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  width: 100%;
+  height: 100%;
   margin-left: 8px;
-  @media screen and (max-width: 1281px) {
-    width: 418px;
-    height: 232px;
-  }
   @media screen and (max-width: 993px) {
-    width: 100%;
-    height: 212px;
     margin-left: 0;
-    margin-bottom: 0;
   }
 `
 const Para = styled.div`
@@ -244,6 +240,8 @@ const InputText = styled.input`
   border: 1px solid #cccccc;
   height: 40px;
   margin-bottom: 16px;
+  padding-left: 16px;
+  font-size: 20px;
   @media (max-width: 1281px) {
     width: 748px;
   }
@@ -261,14 +259,16 @@ const SendBtn = styled.button`
   line-height: 24px;
   background-color: #f44336;
 
-  width: 852px;
+  ${'' /* @media screen and (max-width: 1281px) {
+    width: 852px;
+  } */}
   @media screen and (max-width: 993px) {
     width: 100%;
   }
 `
 
 function MainContent() {
-  const [open, setOpen] = useState(true)
+  const [open, setOpen] = useState(false)
   const nameRef = useRef()
   const emailRef = useRef()
   const messageRef = useRef()
@@ -295,96 +295,100 @@ function MainContent() {
         timestamp: today,
       }
       console.log(messageInfo)
-      const res = await fetch(`http://localhost:3000/messages`, {
-        body: JSON.stringify(messageInfo),
-        headers: new Headers({
-          'Content-Type': 'application/json',
-        }),
-        method: 'POST',
-      })
-      if (res.status === 201) {
-        alert('送出成功')
-        nameRef.current.value = ''
-        emailRef.current.value = ''
-        messageRef.current.value = ''
-        return await res.json()
-      }
+      // const res = await fetch(`http://localhost:3000/messages`, {
+      //   body: JSON.stringify(messageInfo),
+      //   headers: new Headers({
+      //     'Content-Type': 'application/json',
+      //   }),
+      //   method: 'POST',
+      // })
+      // if (res.status === 201) {
+      //   alert('送出成功')
+      //   nameRef.current.value = ''
+      //   emailRef.current.value = ''
+      //   messageRef.current.value = ''
+      //   return await res.json()
+      // }
     }
   }
   return (
     <>
-      <Wrapper>
-        <PhoneSideBar hideOnDesktop>
-          <Bar onClick={showSide}></Bar>
-          <PhoneTitle>DesignWorks</PhoneTitle>
-        </PhoneSideBar>
+      <PhoneSideBar hideOnDesktop>
+        <Bar onClick={showSide}></Bar>
+        <PhoneTitle>DesignWorks</PhoneTitle>
+      </PhoneSideBar>
 
-        <SideBarBg hideOnMobile>
-          <SideBarTitle>DesignWorks</SideBarTitle>
-          <SideBarLists>
-            {['Home', 'Showcase', 'Services', 'Contact'].map((list, index) => {
-              return <SideBarList key={index}>{list}</SideBarList>
-            })}
-          </SideBarLists>
-        </SideBarBg>
-        {open && (
-          <SideBarBgPhone>
-            <SideBarBg>
-              <CloseBtn onClick={closeSlide}></CloseBtn>
-              <SideBarTitle>DesignWorks</SideBarTitle>
-              <SideBarLists>
-                {['Home', 'Showcase', 'Services', 'Contact'].map(
-                  (list, index) => {
-                    return <SideBarList key={index}>{list}</SideBarList>
-                  },
-                )}
-              </SideBarLists>
-            </SideBarBg>
-          </SideBarBgPhone>
-        )}
-        <ContentWrapper>
-          <MainTitle>Interior Design</MainTitle>
-          <SubTitle>Showcase.</SubTitle>
-          <MainImageWrapper>
-            <MainImageA></MainImageA>
+      <SideBarBg hideOnMobile>
+        <SideBarTitle>DesignWorks</SideBarTitle>
+        <SideBarLists>
+          {['Home', 'Showcase', 'Services', 'Contact'].map((list, index) => {
+            return <SideBarList key={index}>{list}</SideBarList>
+          })}
+        </SideBarLists>
+      </SideBarBg>
+      {open && (
+        <SideBarBgPhone>
+          <SideBarBg>
+            <CloseBtn onClick={closeSlide}></CloseBtn>
+            <SideBarTitle>DesignWorks</SideBarTitle>
+            <SideBarLists>
+              {['Home', 'Showcase', 'Services', 'Contact'].map(
+                (list, index) => {
+                  return <SideBarList key={index}>{list}</SideBarList>
+                },
+              )}
+            </SideBarLists>
+          </SideBarBg>
+        </SideBarBgPhone>
+      )}
+      <Wrapper>
+        <MainTitle>Interior Design</MainTitle>
+        <SubTitle>Showcase.</SubTitle>
+        <MainImageWrapper>
+          <ImageOuter>
+            <MainImageA />
+          </ImageOuter>
+          <ImageOuter>
             <MainImageB />
+          </ImageOuter>
+          <ImageOuter>
             <MainImageC />
+          </ImageOuter>
+          <ImageOuter>
             <MainImageD />
-          </MainImageWrapper>
-          <SubTitle>Services.</SubTitle>
-          <Para>
-            <Highlight>
-              We are a interior design service that focus on what's best for
-              your
-            </Highlight>
-            home and what's best for you! Some text about our services - what we
-            do and what we offer. We are lorem ipsum consectetur adipiscing
-            elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-            aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-            laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
-            dolor in reprehenderit in voluptate velit esse cillum dolore eu
-            fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-            proident, sunt in culpa qui officia deserunt mollit anim id est
-            laborum consectetur adipiscing elit, sed do eiusmod tempor
-            incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-            veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
-            ea commodo consequat.
-          </Para>
-          <SubTitle>Contact.</SubTitle>
-          <Divide>
-            <Label>Name</Label>
-            <InputText type="text" ref={nameRef} />
-          </Divide>
-          <Divide>
-            <Label>Email</Label>
-            <InputText type="email" ref={emailRef} />
-          </Divide>
-          <Divide>
-            <Label>Message</Label>
-            <InputText type="text" ref={messageRef} />
-          </Divide>
-          <SendBtn onClick={messageSend}>Send Message</SendBtn>
-        </ContentWrapper>
+          </ImageOuter>
+        </MainImageWrapper>
+        <SubTitle>Services.</SubTitle>
+        <Para>
+          <Highlight>
+            We are a interior design service that focus on what's best for your
+          </Highlight>
+          home and what's best for you! Some text about our services - what we
+          do and what we offer. We are lorem ipsum consectetur adipiscing elit,
+          sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+          enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi
+          ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+          culpa qui officia deserunt mollit anim id est laborum consectetur
+          adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+          magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+          ullamco laboris nisi ut aliquip ex ea commodo consequat.
+        </Para>
+        <SubTitle>Contact.</SubTitle>
+        <Divide>
+          <Label>Name</Label>
+          <InputText type="text" ref={nameRef} />
+        </Divide>
+        <Divide>
+          <Label>Email</Label>
+          <InputText type="email" ref={emailRef} />
+        </Divide>
+        <Divide>
+          <Label>Message</Label>
+          <InputText type="text" ref={messageRef} />
+        </Divide>
+        <SendBtn onClick={messageSend}>Send Message</SendBtn>
       </Wrapper>
     </>
   )
