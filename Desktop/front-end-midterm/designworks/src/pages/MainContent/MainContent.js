@@ -1,6 +1,5 @@
 import styled from 'styled-components'
-import React, { useState, useEffect, useRef } from 'react'
-import ApiContext from '../../contexts/ApiContext'
+import React, { useState, useEffect, useRef, useContext } from 'react'
 import Bedroom from './bedroom.png'
 import Diningroom from './diningroom.png'
 import LivingroomA from './livingroomA.png'
@@ -85,6 +84,7 @@ const SideBarLists = styled.ul`
   color: white;
   display: flex;
   flex-direction: column;
+  padding-left: 0;
 `
 const SideBarList = styled.a`
   font-size: 18px;
@@ -233,6 +233,7 @@ const Label = styled.label`
   width: 104px;
   @media (max-width: 993px) {
     width: 100%;
+    margin-bottom: 0;
   }
 `
 const InputText = styled.input`
@@ -258,13 +259,6 @@ const SendBtn = styled.button`
   color: white;
   line-height: 24px;
   background-color: #f44336;
-
-  ${'' /* @media screen and (max-width: 1281px) {
-    width: 852px;
-  } */}
-  @media screen and (max-width: 993px) {
-    width: 100%;
-  }
 `
 
 function MainContent() {
@@ -295,20 +289,23 @@ function MainContent() {
         timestamp: today,
       }
       console.log(messageInfo)
-      // const res = await fetch(`http://localhost:3000/messages`, {
-      //   body: JSON.stringify(messageInfo),
-      //   headers: new Headers({
-      //     'Content-Type': 'application/json',
-      //   }),
-      //   method: 'POST',
-      // })
-      // if (res.status === 201) {
-      //   alert('送出成功')
-      //   nameRef.current.value = ''
-      //   emailRef.current.value = ''
-      //   messageRef.current.value = ''
-      //   return await res.json()
-      // }
+      const res = await fetch(`http://localhost:3000/messages`, {
+        body: JSON.stringify(messageInfo),
+        headers: new Headers({
+          'Content-Type': 'application/json',
+        }),
+        method: 'POST',
+      })
+      if (res.status === 201) {
+        alert('送出成功')
+        nameRef.current.value = ''
+        emailRef.current.value = ''
+        messageRef.current.value = ''
+      } else {
+        console.log(res.status)
+        alert('填資料失敗')
+      }
+      return await res.json()
     }
   }
   return (

@@ -1,4 +1,5 @@
 import MainContent from './pages/MainContent/MainContent'
+import Messages from './pages/Messages/Messages'
 import { createGlobalStyle } from 'styled-components'
 
 const GlobalStyle = createGlobalStyle`
@@ -22,6 +23,7 @@ function App() {
     <>
       <GlobalStyle />
       <MainContent />
+      <Messages />
     </>
   )
 }
